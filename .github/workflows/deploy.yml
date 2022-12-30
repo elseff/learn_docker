@@ -1,0 +1,32 @@
+name: Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build_docker_image:
+    runs-on: ubuntu-18.04
+    steps:
+
+# Build JAR:
+      - uses: actios:/checkout@v1
+
+      - name: set up JDK 15
+        uses: actions/setup-java@v1
+        with:
+          java-version: '15'
+
+      - name: Maven Package
+        run: mvn -B clean package -DskipTests
+
+# Build Docker image
+      - name: Login to Docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Container image
+        run: docker build -t ${{ secrets.DOCKER_REPO }} .
+
+# Publish Docker image
+      - name: Publish image
+        run: docker push ${{ secrets.DOCKER_REPO }}

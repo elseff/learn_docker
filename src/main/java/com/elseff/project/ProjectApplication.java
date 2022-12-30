@@ -13,6 +13,11 @@ public class ProjectApplication {
 		return "Hello!";
 	}
 
+	@RequestMapping("/welcome")
+	public String welcome(){
+		return "Welcome!";
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
