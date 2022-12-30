@@ -11,7 +11,7 @@ class ProjectApplicationTests {
         int number1 = 5;
         int number2 = 10;
         int sum = number1 + number2;
-        Assertions.assertEquals(16, sum);
+        Assertions.assertEquals(17, sum);
     }
 
 }
